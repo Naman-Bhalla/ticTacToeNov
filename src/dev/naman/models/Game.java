@@ -1,15 +1,18 @@
 package dev.naman.models;
 
+import dev.naman.exceptions.DuplicateSymbolException;
 import dev.naman.exceptions.InvalidPlayersQuanityException;
 import dev.naman.strategies.winning.IWinningStrategy;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Game {
     private List<Player> players = new ArrayList<>();
     private Board board;
-    private List<IWinningStrategy> winningStrategies;
+    private List<IWinningStrategy> winningStrategies = new ArrayList<>();
 
     public List<Player> getPlayers() {
         return players;
@@ -17,6 +20,10 @@ public class Game {
 
     private void setPlayers(List<Player> players) {
         this.players = players;
+    }
+
+    public void printBoard() {
+        board.printBoard();
     }
 
 
@@ -64,6 +71,13 @@ public class Game {
         public Game build() {
             if (game.getPlayers().size() < 2) {
                 throw new InvalidPlayersQuanityException();
+            }
+            Set<Character> symbols = new HashSet<>();
+
+            for (Player player: game.getPlayers()) {
+                if (symbols.contains(player.symbol.getSymbol())) {
+                    throw new DuplicateSymbolException();
+                }
             }
 
             Board board = new Board(rows, columns);

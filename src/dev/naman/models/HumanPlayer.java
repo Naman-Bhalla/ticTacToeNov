@@ -19,6 +19,11 @@ public class HumanPlayer extends Player {
             return this;
         }
 
+        public Builder setSymbol(char symbol) {
+            this.humanPlayer.symbol = new Symbol(symbol);
+            return this;
+        }
+
         public HumanPlayer build() {
             return this.humanPlayer;
         }

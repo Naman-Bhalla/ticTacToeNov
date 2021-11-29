@@ -1,5 +1,7 @@
 package dev.naman;
 
+import dev.naman.controllers.GameController;
+import dev.naman.factories.PlayerFactory;
 import dev.naman.models.*;
 import dev.naman.strategies.automove.RandomMoveStrategy;
 import dev.naman.strategies.winning.DefaultWinningStrategy;
@@ -11,18 +13,28 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
-	  // Create a game.
-        // after a game is created, i don't want to mutate game attributes
-        // i need some validation on the attributes before i start game
         Game game = Game.getBuilder()
-                .addPlayer(HumanPlayer.getBuilder().setUser(new User()).build())
-                .addPlayer(Bot.getBuilder().setMoveStrategy(new RandomMoveStrategy()).build())
+                .addPlayer(
+                        PlayerFactory.createHumanPlayer()
+                        .setUser(new User())
+                        .setSymbol('O')
+                        .build()
+                )
+                .addPlayer(
+                        PlayerFactory.createBot()
+                                .setMoveStrategy(new RandomMoveStrategy())
+                                .setSymbol('X')
+                                .build()
+                )
                 .addWinningStrategy(new DefaultWinningStrategy())
                 .setRows(3)
                 .setColumns(3)
                 .build();
+        GameController.run(game);
     }
 }
+
+// It returns an object of the subtype of a supercass
 
 // Test Driven Development
 // Write test cases first and after that write the code

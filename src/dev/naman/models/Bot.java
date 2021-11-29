@@ -21,6 +21,11 @@ public class Bot extends Player {
             return this;
         }
 
+        public Builder setSymbol(char symbol) {
+            this.bot.symbol = new Symbol(symbol);
+            return this;
+        }
+
         public Bot build() {
             return this.bot;
         }
