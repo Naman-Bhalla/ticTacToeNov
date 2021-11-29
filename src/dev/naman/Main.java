@@ -63,6 +63,8 @@ public class Main {
 // Model (Ingredients)
 // Repositories (Fridge)
 
+// before project building
+
 // Splitwise etc
 
 // client side app -> we don't want any persistent
