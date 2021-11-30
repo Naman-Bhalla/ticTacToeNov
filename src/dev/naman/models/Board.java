@@ -8,21 +8,30 @@ public class Board {
 
     Board(int rows, int columns) {
         board = new ArrayList<>();
-        for (int i = 0; i < rows; ++i) {
-            board.add(new ArrayList<>());
-            for (int j = 0; j < columns; ++j) {
-                board.get(i).add(new Cell());
+        for(int i = 0;i<rows;i++) {
+            board.add(new ArrayList<Cell>());
+            for(int j = 0;j<columns;j++) {
+                board.get(i).add(new Cell(i, j));
             }
         }
     }
 
     public void printBoard() {
         for (int i = 0; i < board.size(); ++i) {
-            for (int j = 0; j < board.get(i). size(); ++j) {
-                System.out.printf("%c ", board.get(i).get(j).symbol.getSymbol());
+            int rowSize =  board.get(i). size();
+            for (int j = 0; j < rowSize; ++j) {
+                Symbol symbol =  board.get(i).get(j).symbol;
+                if(symbol == null) {
+                    System.out.print(' ');
+                } else {
+                    System.out.print(symbol.getSymbol());
+                }
+                if(j<rowSize - 1) {
+                    System.out.print('|');
+                }
             }
+            System.out.println();
         }
-        System.out.printf("\n");
     }
 }
 
