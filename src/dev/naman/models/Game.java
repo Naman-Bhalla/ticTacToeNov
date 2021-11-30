@@ -26,13 +26,32 @@ public class Game {
         board.printBoard();
     }
 
+    public void updateBoard(Move move) {
+        board.updateBord(move);
+    }
+
 
     private void setBoard(Board board) {
         this.board = board;
     }
 
+    public Board getBoard() {
+        return this.board;
+    }
+
     private void setWinningStrategies(List<IWinningStrategy> winningStrategies) {
         this.winningStrategies = winningStrategies;
+    }
+
+    public Player checkWinner() {
+        Player winner = null;
+        for(IWinningStrategy winningStrategy: winningStrategies) {
+            winner = winningStrategy.checkWinner(this.board, this.players);
+            if(winner != null) {
+                return winner;
+            }
+        }
+        return null;
     }
 
     public static Builder getBuilder() {
